@@ -1320,7 +1320,7 @@ if (plugCubed !== undefined) plugCubed.close();
              * @param {plugDJAdvanceEvent} data
              */
             onDjAdvance: function(data) {
-                if (this.settings.timeoutID  !== null) {
+                if (this.settings.timeoutID) {
                     API.chatLog('Old timeoutID found, clearing');
                     clearTimeout(this.settings.timeoutID);
                     this.settings.timeoutID = null;

@@ -258,6 +258,21 @@ if (plugCubed !== undefined) plugCubed.close();
             return null;
         }
 
+	/*
+        function getMediaInfo(data) {
+            var media = data;
+            if (data === null) API.chatLog('Error: media not found');
+            else {
+                var title = media.title,
+                    format = media.format,
+                    author = media.author,
+                    cid = media.cid,
+                    duration = media.duration,
+                    id = media.id,
+            };
+        };
+        */
+
         function getUserInfo(data) {
             /** @type {plugUserObject} */
             var user = getUser(data);
@@ -942,7 +957,8 @@ if (plugCubed !== undefined) plugCubed.close();
                 registeredSongs: [],
                 alertson: [],
                 afkTimers: false,
-                notifySongLength: 10,
+                notifySongLength: 2,
+                maxSongLength: 2.5,
                 useRoomSettings: {},
                 colors: {
                     you: 'FFDD6F',
@@ -1308,6 +1324,11 @@ if (plugCubed !== undefined) plugCubed.close();
                     playMentionSound();
                     setTimeout(playMentionSound, 50);
                     p3Utils.chatLog('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
+                }
+                if data.media.duration > this.settings.maxSongLength * 60) {
+                    playMentionSound();
+                    setTimeout(playMentionSound, 50);     
+                    API.moderateForceSkip();           
                 }
                 if (this.settings.autojoin) join();
                 setTimeout($.proxy(this.onDjAdvanceLate, this), Math.randomRange(1, 10) * 1000);

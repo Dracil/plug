@@ -1615,7 +1615,8 @@ if (plugCubed !== undefined) plugCubed.close();
                     API.chatLog('Attempting to get media info')
                     var a = API.getMedia();
                     if (a === undefined) return;
-                    API.chatLog("duration "+a.duration);
+                    API.chatLog("duration " + a.duration);
+                    API.chatLog("max duration" + this.settings.maxSongLength * 60);
                 }
                 if (value === '/join')
                     return API.djJoin();

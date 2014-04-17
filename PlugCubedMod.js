@@ -1320,11 +1320,11 @@ if (plugCubed !== undefined) plugCubed.close();
              * @param {plugDJAdvanceEvent} data
              */
             onDjAdvance: function(data) {
-                if (this.settings.timeoutID) {
-                    API.chatLog('Old timeoutID found, clearing');
-                    clearTimeout(this.settings.timeoutID);
-                    this.settings.timeoutID = null;
-                }
+                //if (this.settings.timeoutID) {
+                //    API.chatLog('Old timeoutID found, clearing');
+                //    clearTimeout(this.settings.timeoutID);
+                //    this.settings.timeoutID = null;
+                //}
                 if ((this.settings.notify & 8) === 8)
                     p3Utils.chatLog(undefined, p3Lang.i18n('notify.message.stats', data.lastPlay.score.positive, data.lastPlay.score.negative, data.lastPlay.score.curates), this.settings.colors.stats);
                 if ((this.settings.notify & 16) === 16)

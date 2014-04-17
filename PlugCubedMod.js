@@ -1589,8 +1589,12 @@ if (plugCubed !== undefined) plugCubed.close();
                 }
                 
                 
-                if (value === '/info')
-                    return API.getMedia();
+                if (value === '/info') {
+                    API.chatLog('Attempting to get media info')
+                    var a = API.getMedia();
+                    if (a === undefined) return;
+                    API.chatLog("duration "+a.duration);
+                }
                 if (value === '/join')
                     return API.djJoin();
                 if (value === '/leave')

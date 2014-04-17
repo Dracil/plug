@@ -258,7 +258,7 @@ if (plugCubed !== undefined) plugCubed.close();
             return null;
         }
 
-	/*
+        /*
         function getMediaInfo(data) {
             var media = data;
             if (data === null) API.chatLog('Error: media not found');
@@ -959,6 +959,7 @@ if (plugCubed !== undefined) plugCubed.close();
                 afkTimers: false,
                 notifySongLength: 2,
                 maxSongLength: 2,
+                skipMaxSongLength: 2.5,
                 useRoomSettings: {},
                 colors: {
                     you: 'FFDD6F',
@@ -1000,6 +1001,7 @@ if (plugCubed !== undefined) plugCubed.close();
                     } else this.settings.autoMuted = false;
                     this.settings.notifySongLength = 2;
                     this.settings.maxSongLength = 2;
+                    this.settings.skipMaxSongLength = 2.5;                    
                 } catch (e) {}
             },
             /**
@@ -1327,11 +1329,17 @@ if (plugCubed !== undefined) plugCubed.close();
                     setTimeout(playMentionSound, 50);
                     p3Utils.chatLog('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
                 }
-                if (data.media.duration > this.settings.maxSongLength * 60) {
+                if (data.media.duration > this.settings.skipMaxSongLength * 60) {
                     playMentionSound();
                     setTimeout(playMentionSound, 50);     
+                    API.chatLog('Song duration (' + data.media.duration + ') > Auto Skip max song duration (' + this.settings.skipMaxSongLength * 60 + ')');
                     API.moderateForceSkip();
-                    API.chatLog('Song duration (' + data.media.duration + ') > Max song duration (' + this.settings.maxSongLength * 60 + ')');
+                }
+                if (data.media.duration > this.settings.maxSongLength * 60) {  
+                    window.setTimeout(function() {
+                        API.chatLog('Song has reached max duration (' + this.settings.maxSongLength * 60 + ')');
+                        API.moderateForceSkip();
+                    }, this.settings.maxSongLength * 60 * 1000);
                 }
                 if (this.settings.autojoin) join();
                 setTimeout($.proxy(this.onDjAdvanceLate, this), Math.randomRange(1, 10) * 1000);

@@ -993,7 +993,11 @@ if (plugCubed !== undefined) plugCubed.close();
                     this.updateCustomColors();
                     if (this.settings.afkTimers && (p3Utils.isPlugCubedDeveloper() || API.hasPermission(undefined, API.ROLE.BOUNCER))) Styles.set('waitListMove', '#waitlist .list .user .name { top: 2px; }');
                     if (this.settings.notify > 127) this.settings.notify = 0;
-                    if (this.settings.notifySongLength > 2) this.settings.notifySongLength = 2; //need this until I can figure out how to lower song notify below 5m
+                    if (this.settings.notifySongLength > 2) {
+                        this.settings.notifySongLength = 2; //need this until I can figure out how to lower song notify below 5m
+                        API.chatLog('set notify song length to ' + notifySongLength);
+                    }
+                    else API.chatLog('notify song length is ' + this.settings.notifySongLength);
                     if (this.settings.registeredSongs.length > 0 && this.settings.registeredSongs.indexOf(API.getMedia().id) > -1) {
                         while (!PlaybackModel.get('mutedOnce'))
                             volume.onClick();

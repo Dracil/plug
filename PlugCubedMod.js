@@ -999,7 +999,6 @@ if (plugCubed !== undefined) plugCubed.close();
                             volume.onClick();
                         API.chatLog(p3Lang.i18n('automuted', API.getMedia().title));
                     } else this.settings.autoMuted = false;
-                    this.settings.notifySongLength = 2;
                     this.settings.maxSongLength = 2;
                     this.settings.skipMaxSongLength = 2.5;                    
                 } catch (e) {}
@@ -1336,6 +1335,7 @@ if (plugCubed !== undefined) plugCubed.close();
                     API.moderateForceSkip();
                 }
                 if (data.media.duration > this.settings.maxSongLength * 60) {  
+                    API.chatLog('Song is too long and will be skipped in ' + this.settings.maxSongLength * 60 + ' seconds');
                     window.setTimeout(function() {
                         API.chatLog('Song has reached max duration (' + this.settings.maxSongLength * 60 + ')');
                         API.moderateForceSkip();

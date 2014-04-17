@@ -1339,7 +1339,7 @@ if (plugCubed !== undefined) plugCubed.close();
                     window.setTimeout(function() {
                         API.chatLog('Song has reached max duration (' + this.settings.maxSongLength * 60 + ')');
                         API.moderateForceSkip();
-                    }, this.settings.maxSongLength * 60 * 1000);
+                    }, 5000);
                 }
                 if (this.settings.autojoin) join();
                 setTimeout($.proxy(this.onDjAdvanceLate, this), Math.randomRange(1, 10) * 1000);

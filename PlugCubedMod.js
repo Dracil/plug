@@ -1334,10 +1334,9 @@ if (plugCubed !== undefined) plugCubed.close();
                     API.chatLog('Song duration (' + data.media.duration + ') > Auto Skip max song duration (' + this.settings.skipMaxSongLength * 60 + ')');
                     API.moderateForceSkip();
                 }
-                this may be unsafe and should be tested
                 if (data.media.duration > this.settings.maxSongLength * 60) {  
                     API.chatLog('Song is too long and will be skipped in ' + this.settings.maxSongLength * 60 + ' seconds');
-                    setTimeout(function() {
+                    window.setTimeout(function() {
                         API.chatLog('Duration reached, skipping');
                         API.moderateForceSkip();
                     }, this.settings.maxSongLength * 60 * 1000);

@@ -1336,9 +1336,12 @@ if (plugCubed !== undefined) plugCubed.close();
                 }
                 if (data.media.duration > this.settings.maxSongLength * 60) {  
                     API.chatLog('Song is too long and will be skipped in ' + this.settings.maxSongLength * 60 + ' seconds');
+                    var oldid=data.media.id;
                     window.setTimeout(function() {
                         API.chatLog('Duration reached, skipping');
-                        API.moderateForceSkip();
+                        var media = API.getMedia();
+                        API.chatLog('Old id: ' + oldid + '/ New id: ' + media.id);
+                        if (oldid === media.id) API.moderateForceSkip();
                     }, this.settings.maxSongLength * 60 * 1000);
                 }
                 if (this.settings.autojoin) join();

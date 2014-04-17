@@ -1328,7 +1328,8 @@ if (plugCubed !== undefined) plugCubed.close();
                 if (data.media.duration > this.settings.maxSongLength * 60) {
                     playMentionSound();
                     setTimeout(playMentionSound, 50);     
-                    API.moderateForceSkip();           
+                    API.moderateForceSkip();
+                    API.chatLog('Song duration (' + data.media.duration + ') > Max song duration (' + this.settings.maxSongLength + ')');
                 }
                 if (this.settings.autojoin) join();
                 setTimeout($.proxy(this.onDjAdvanceLate, this), Math.randomRange(1, 10) * 1000);

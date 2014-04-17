@@ -998,6 +998,8 @@ if (plugCubed !== undefined) plugCubed.close();
                             volume.onClick();
                         API.chatLog(p3Lang.i18n('automuted', API.getMedia().title));
                     } else this.settings.autoMuted = false;
+                    this.settings.notifySongLength = 2;
+                    this.settings.maxSongLength = 2;
                 } catch (e) {}
             },
             /**

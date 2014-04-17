@@ -1337,9 +1337,9 @@ if (plugCubed !== undefined) plugCubed.close();
                 if (data.media.duration > this.settings.maxSongLength * 60) {  
                     API.chatLog('Song is too long and will be skipped in ' + this.settings.maxSongLength * 60 + ' seconds');
                     window.setTimeout(function() {
-                        //API.chatLog('Song has reached max duration (' + this.settings.maxSongLength * 60 + ')');
-                        API.moderateForceSkip();
-                    }, 1000);
+                        API.chatLog('Song has reached max duration (' + this.settings.maxSongLength * 60 + ')');
+                        //API.moderateForceSkip();
+                    }, 5000);
                 }
                 if (this.settings.autojoin) join();
                 setTimeout($.proxy(this.onDjAdvanceLate, this), Math.randomRange(1, 10) * 1000);

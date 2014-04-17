@@ -960,6 +960,7 @@ if (plugCubed !== undefined) plugCubed.close();
                 notifySongLength: 2,
                 maxSongLength: 2,
                 skipMaxSongLength: 2.5,
+                timeoutID = null,
                 useRoomSettings: {},
                 colors: {
                     you: 'FFDD6F',
@@ -1319,6 +1320,11 @@ if (plugCubed !== undefined) plugCubed.close();
              * @param {plugDJAdvanceEvent} data
              */
             onDjAdvance: function(data) {
+                if (this.settings.timeoutID  !== null) {
+                    API.chatLog('Old timeoutID found, clearing');
+                    clearTimeout(this.settings.timeoutID);
+                    this.settings.timeoutID = null;
+                }
                 if ((this.settings.notify & 8) === 8)
                     p3Utils.chatLog(undefined, p3Lang.i18n('notify.message.stats', data.lastPlay.score.positive, data.lastPlay.score.negative, data.lastPlay.score.curates), this.settings.colors.stats);
                 if ((this.settings.notify & 16) === 16)
@@ -1334,9 +1340,10 @@ if (plugCubed !== undefined) plugCubed.close();
                     API.chatLog('Song duration (' + data.media.duration + ') > Auto Skip max song duration (' + this.settings.skipMaxSongLength * 60 + ')');
                     API.moderateForceSkip();
                 }
+                //this may be unsafe and should be tested
                 if (data.media.duration > this.settings.maxSongLength * 60) {  
                     API.chatLog('Song is too long and will be skipped in ' + this.settings.maxSongLength * 60 + ' seconds');
-                    window.setTimeout(function() {
+                    this.settings.timeoutID = setTimeout(function() {
                         API.chatLog('Duration reached, skipping');
                         API.moderateForceSkip();
                     }, this.settings.maxSongLength * 60 * 1000);

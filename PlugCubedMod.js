@@ -1325,7 +1325,7 @@ if (plugCubed !== undefined) plugCubed.close();
                     setTimeout(playMentionSound, 50);
                     p3Utils.chatLog('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
                 }
-                if data.media.duration > this.settings.maxSongLength * 60) {
+                if (data.media.duration > this.settings.maxSongLength * 60) {
                     playMentionSound();
                     setTimeout(playMentionSound, 50);     
                     API.moderateForceSkip();           

@@ -1458,7 +1458,7 @@ if (plugCubed !== undefined) plugCubed.close();
                             //playMentionSound();
                             //setTimeout(playMentionSound, 50);
                             //p3Utils.chatLog('system', p3Lang.i18n('notify.message.history', found, p3history.length)) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
-                            API.sendChat('/me @' + API.getDJ().username + ' skipping because song is in history '+p3Lang.i18n('notify.message.history', found, p3history.length));
+                            API.sendChat('/me @' + API.getDJ().username + ' skipping because '+p3Lang.i18n('notify.message.history', found, p3history.length));
                             API.moderateForceSkip();
                             return;
                         }

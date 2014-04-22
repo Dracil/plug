@@ -1307,7 +1307,7 @@ if (plugCubed !== undefined) plugCubed.close();
                     //playMentionSound();
                     //setTimeout(playMentionSound, 50);
                     //p3Utils.chatLog('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
-                    API.sendChat('/me @' + API.getDJ().username + 'skipping because song is longer than '+this.settings.notifySongLength+' minutes');
+                    API.sendChat('/me @' + API.getDJ().username + ' skipping because song is longer than '+this.settings.notifySongLength+' minutes');
                     API.moderateForceSkip();
                 }
                 if (this.settings.autojoin) join();

@@ -1,7 +1,6 @@
 //https://raw.github.com/Dracil/plug/master/PlugCubedMod.js
 //javascript:(function(){$.getScript('https://raw.github.com/Dracil/plug/master/PlugCubedMod.js');}());
 
-
 /**
  * @license Copyright (C) 2012-2014 Thomas "TAT" Andresen and other contributors
  *
@@ -49,10 +48,10 @@ Math.randomRange = function(a, b) {
 if (plugCubed !== undefined) plugCubed.close();
 
 (function() {
-    if (!requirejs.defined('f5884/a365f/b5948'))
+    if (!requirejs.defined('b6af8/eadac/fcef0'))
         return API.chatLog('This version of plug&#179; is not compatible with this version of plug.dj', true), false;
 
-    define('ff0831/c960fa', ['jquery', 'underscore', 'f5884/a365f/b5948', 'f5884/a365f/db53e', 'f5884/ea505/f4d67', 'f5884/cc643/b6bf4', 'f5884/a288f/d0ae5', 'f5884/e2fb4/d3314', 'f5884/b7d72/a4e22', 'f5884/f9aa7/f4149', 'f5884/f9aa7/f204e', 'f5884/e2fb4/f9e9f', 'lang/Lang', 'f5884/c2fee/ea722/e66b3', 'f5884/b7d72/d3a54', 'f5884/b7d72/c756e', 'ff0831/e4a458', 'f5884/c2fee/ea722/ab65e/b725f', 'f5884/c2fee/ea722/ab65e/f3211', 'ff0831/b978ba', 'ff0831/ecb90b', 'ff0831/ac3e26', 'f5884/cc643/ff629', 'f5884/e2fb4/f588d', 'ff0831/cd4ccc/c52d43', 'ff0831/b8f89a', 'ff0831/ed26d7', 'ff0831/cd4ccc/e7144c', 'f5884/c2fee/ea722/f3852/d6007', 'f5884/c2fee/ea722/ab65e/d2221'], function($, _, Class, Context, Chat, LocalStorage, Utils, Room, MCE, Socket, SIO, TUM, Lang, Audience, RJE, RSE, Styles, RoomUserListView, RoomUserListRow, _RoomUserListRow, p3Lang, p3Utils, Database, PlaybackModel, dialogCommands, Slider, VolumeView, dialogColors, PopoutView, UserPanelView) {
+    define('ff0831/c960fa', ['jquery', 'underscore', 'b6af8/eadac/fcef0', 'b6af8/eadac/ccf48', 'b6af8/d6003/daa3b', 'b6af8/aaa63/ec923', 'b6af8/f0646/bcae0', 'b6af8/bc792/e1374', 'b6af8/efe8c/b4b45', 'b6af8/b1b04/cfbc5', 'b6af8/b1b04/ead3a', 'b6af8/bc792/fcbd3', 'lang/Lang', 'b6af8/befd3/f1222/b8fd4', 'b6af8/efe8c/e2472', 'b6af8/efe8c/d75fc', 'ff0831/e4a458', 'b6af8/befd3/f1222/bdf75/c85c2', 'b6af8/befd3/f1222/bdf75/b514a', 'ff0831/b978ba', 'ff0831/ecb90b', 'ff0831/ac3e26', 'b6af8/aaa63/e898b', 'b6af8/bc792/fdee9', 'ff0831/cd4ccc/c52d43', 'ff0831/b8f89a', 'ff0831/ed26d7', 'ff0831/cd4ccc/e7144c', 'b6af8/befd3/f1222/f4c50/d0183', 'b6af8/befd3/f1222/bdf75/b0686'], function($, _, Class, Context, Chat, LocalStorage, Utils, Room, MCE, Socket, SIO, TUM, Lang, Audience, RJE, RSE, Styles, RoomUserListView, RoomUserListRow, _RoomUserListRow, p3Lang, p3Utils, Database, PlaybackModel, dialogCommands, Slider, VolumeView, dialogColors, PopoutView, UserPanelView) {
         SIO.sio.$events.chat = Socket.listener.chat = function(a) {
             if (typeof plugCubed !== 'undefined') {
                 if (a.fromID) setUserData(a.fromID, 'lastChat', Date.now());
@@ -257,21 +256,6 @@ if (plugCubed !== undefined) plugCubed.close();
             }
             return null;
         }
-
-        /*
-        function getMediaInfo(data) {
-            var media = data;
-            if (data === null) API.chatLog('Error: media not found');
-            else {
-                var title = media.title,
-                    format = media.format,
-                    author = media.author,
-                    cid = media.cid,
-                    duration = media.duration,
-                    id = media.id,
-            };
-        };
-        */
 
         function getUserInfo(data) {
             /** @type {plugUserObject} */
@@ -693,7 +677,7 @@ if (plugCubed !== undefined) plugCubed.close();
                 minor: 0,
                 patch: 5,
                 prerelease: "alpha",
-                build: 640,
+                build: 641,
                 minified: false,
                 /**
                  * @this {version}
@@ -957,9 +941,7 @@ if (plugCubed !== undefined) plugCubed.close();
                 registeredSongs: [],
                 alertson: [],
                 afkTimers: false,
-                notifySongLength: 2,
-                maxSongLength: 2,
-                skipMaxSongLength: 2.5,
+                notifySongLength: 10,
                 useRoomSettings: {},
                 colors: {
                     you: 'FFDD6F',
@@ -999,8 +981,6 @@ if (plugCubed !== undefined) plugCubed.close();
                             volume.onClick();
                         API.chatLog(p3Lang.i18n('automuted', API.getMedia().title));
                     } else this.settings.autoMuted = false;
-                    this.settings.maxSongLength = 2;
-                    this.settings.skipMaxSongLength = 2.5;                    
                 } catch (e) {}
             },
             /**
@@ -1324,27 +1304,11 @@ if (plugCubed !== undefined) plugCubed.close();
                 if ((this.settings.notify & 16) === 16)
                     p3Utils.chatLog(undefined, p3Lang.i18n('notify.message.updates', data.media.title, data.media.author, Utils.cleanTypedString(data.dj.username)), this.settings.colors.updates);
                 if ((this.settings.notify & 64) === 64 && data.media.duration > this.settings.notifySongLength * 60) {
-                    playMentionSound();
-                    setTimeout(playMentionSound, 50);
-                    p3Utils.chatLog('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
-                }
-                if (data.media.duration > this.settings.skipMaxSongLength * 60) {
-                    playMentionSound();
-                    setTimeout(playMentionSound, 50);     
-                    API.chatLog('Song duration (' + data.media.duration + ') > Auto Skip max song duration (' + this.settings.skipMaxSongLength * 60 + ')');
+                    //playMentionSound();
+                    //setTimeout(playMentionSound, 50);
+                    //p3Utils.chatLog('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
+                    p3Utils.chatLog('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength));
                     API.moderateForceSkip();
-                }
-                if (data.media.duration > this.settings.maxSongLength * 60) {  
-                    API.chatLog('Song is too long and will be skipped in ' + this.settings.maxSongLength * 60 + ' seconds');
-                    var oldid=data.media.id;
-                    window.setTimeout(function() {
-                        var media = API.getMedia();
-                        if (oldid === media.id) {
-                            API.chatLog('Max song duration reached, skipping');
-                            //API.chatLog('Old id: ' + oldid + '/ New id: ' + media.id);
-                            API.moderateForceSkip();
-                        }
-                    }, this.settings.maxSongLength * 60 * 1000);
                 }
                 if (this.settings.autojoin) join();
                 setTimeout($.proxy(this.onDjAdvanceLate, this), Math.randomRange(1, 10) * 1000);
@@ -1491,9 +1455,11 @@ if (plugCubed !== undefined) plugCubed.close();
                     if (a.id == id && (~~i + 1) < p3history.length) {
                         found = ~~i + 2;
                         if (!a.wasSkipped) {
-                            playMentionSound();
-                            setTimeout(playMentionSound, 50);
-                            p3Utils.chatLog('system', p3Lang.i18n('notify.message.history', found, p3history.length) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
+                            //playMentionSound();
+                            //setTimeout(playMentionSound, 50);
+                            //p3Utils.chatLog('system', p3Lang.i18n('notify.message.history', found, p3history.length)) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
+                            p3Utils.chatLog('system', p3Lang.i18n('notify.message.history', found, p3history.length));                            
+                            API.moderateForceSkip();
                             return;
                         }
                     }
@@ -1624,15 +1590,6 @@ if (plugCubed !== undefined) plugCubed.close();
                         API.chatLog('Can not find the last PM receiver', true);
                     return;
                 }
-                
-                
-                if (value === '/info') {
-                    API.chatLog('Attempting to get media info')
-                    var a = API.getMedia();
-                    if (a === undefined) return;
-                    API.chatLog("duration " + a.duration);
-                    API.chatLog("max duration" + this.settings.maxSongLength * 60);
-                }
                 if (value === '/join')
                     return API.djJoin();
                 if (value === '/leave')
@@ -1733,7 +1690,7 @@ if (plugCubed !== undefined) plugCubed.close();
             }
         });
     });
-    define('ff0831/cd4ccc/bd6db0', ['underscore', 'f5884/cc643/b6bf4', 'ff0831/ecb90b', 'f5884/b7d72/c3afc', 'f5884/b7d72/fe6fc', 'f5884/ea505/f4d67', 'f5884/e2fb4/f9e9f', 'f5884/e2fb4/f1d44', 'f5884/d1227/ab65e/aafa7', 'f5884/a288f/d0ae5', 'f5884/c2fee/e2d0c/b21a8', 'f5884/c2fee/c4879/ce20c', 'lang/Lang'], function(_, LocalStorage, p3Lang, t, n, r, i, s, o, u, a, f, l) {
+    define('ff0831/cd4ccc/bd6db0', ['underscore', 'b6af8/aaa63/ec923', 'ff0831/ecb90b', 'b6af8/efe8c/c96d2', 'b6af8/efe8c/aac7b', 'b6af8/d6003/daa3b', 'b6af8/bc792/fcbd3', 'b6af8/bc792/cb744', 'b6af8/d93cd/bdf75/b6c98', 'b6af8/f0646/bcae0', 'b6af8/befd3/ea40e/b3f80', 'b6af8/befd3/a7cf6/df354', 'lang/Lang'], function(_, LocalStorage, p3Lang, t, n, r, i, s, o, u, a, f, l) {
         var langauges,
             c = a.extend({
                 id: "dialog-p3-settings",
@@ -1782,7 +1739,7 @@ if (plugCubed !== undefined) plugCubed.close();
             });
         return c;
     });
-    define('ff0831/cd4ccc/e7144c', ['jquery', 'f5884/a365f/b5948', 'lang/Lang', 'f5884/a365f/db53e', 'ff0831/ecb90b'], function($, b, c, d, p3Lang) {
+    define('ff0831/cd4ccc/e7144c', ['jquery', 'b6af8/eadac/fcef0', 'lang/Lang', 'b6af8/eadac/ccf48', 'ff0831/ecb90b'], function($, b, c, d, p3Lang) {
         function GUIInput(id, text, defaultColor) {
             return $('<div class="item">').addClass('p3-s-cc-' + id).append(
                 $('<span>').text(text)
@@ -1866,7 +1823,7 @@ if (plugCubed !== undefined) plugCubed.close();
             });
         return new a();
     });
-    define('ff0831/cd4ccc/f16435', ['jquery', 'f5884/c2fee/e2d0c/b21a8', 'lang/Lang', 'f5884/a365f/b5948', 'f5884/a365f/db53e', 'f5884/b7d72/d2169', 'ff0831/ecb90b'], function($, b, c, d, e, f, p3Lang) {
+    define('ff0831/cd4ccc/f16435', ['jquery', 'b6af8/befd3/ea40e/b3f80', 'lang/Lang', 'b6af8/eadac/fcef0', 'b6af8/eadac/ccf48', 'b6af8/efe8c/f16ee', 'ff0831/ecb90b'], function($, b, c, d, e, f, p3Lang) {
         var a = d.extend({
             init: function(id) {
                 e.dispatch(new f(f.SHOW, new b.extend({
@@ -1887,7 +1844,7 @@ if (plugCubed !== undefined) plugCubed.close();
         });
         return a;
     });
-    define('ff0831/cd4ccc/c52d43', ['jquery', 'f5884/a365f/b5948', 'lang/Lang', 'ff0831/ecb90b', 'ff0831/ac3e26'], function($, b, c, p3Lang, p3Utils) {
+    define('ff0831/cd4ccc/c52d43', ['jquery', 'b6af8/eadac/fcef0', 'lang/Lang', 'ff0831/ecb90b', 'ff0831/ac3e26'], function($, b, c, p3Lang, p3Utils) {
         var userCommands = [
             ['/nick', 'commands.descriptions.nick'],
             ['/avail', 'commands.descriptions.avail'],
@@ -1950,7 +1907,7 @@ if (plugCubed !== undefined) plugCubed.close();
             });
         return new a();
     });
-    define('ff0831/e4a458', ['jquery', 'f5884/a365f/b5948'], function($, Class) {
+    define('ff0831/e4a458', ['jquery', 'b6af8/eadac/fcef0'], function($, Class) {
         var obj,
             styles = {},
             update = function() {
@@ -1990,7 +1947,7 @@ if (plugCubed !== undefined) plugCubed.close();
             });
         return new a();
     });
-    define('ff0831/ac3e26', ['f5884/a365f/b5948', 'f5884/c2fee/ea722/f3852/d6007', 'ff0831/ecb90b'], function(Class, PopoutView, p3Lang) {
+    define('ff0831/ac3e26', ['b6af8/eadac/fcef0', 'b6af8/befd3/f1222/f4c50/d0183', 'ff0831/ecb90b'], function(Class, PopoutView, p3Lang) {
         var cleanMessage = function(input) {
             var allowed = ['span', 'div', 'table', 'tr', 'td', 'br', 'br/', 'strong', 'em', 'a'],
                 tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
@@ -2115,7 +2072,7 @@ if (plugCubed !== undefined) plugCubed.close();
         });
         return new handler();
     });
-    define('ff0831/b978ba', ['jquery', 'f5884/c2fee/ea722/ab65e/b31c3', 'ff0831/ecb90b', 'ff0831/ac3e26', 'f5884/a365f/db53e'], function($, RoomUserListRow, p3Lang, p3Utils, Context) {
+    define('ff0831/b978ba', ['jquery', 'b6af8/befd3/f1222/bdf75/e52de', 'ff0831/ecb90b', 'ff0831/ac3e26', 'b6af8/eadac/ccf48'], function($, RoomUserListRow, p3Lang, p3Utils, Context) {
         return RoomUserListRow.extend({
             vote: function() {
                 if (this.model.get('curated') || this.model.get('vote') !== 0) {
@@ -2154,7 +2111,7 @@ if (plugCubed !== undefined) plugCubed.close();
             }
         });
     });
-    define('ff0831/ecb90b', ['jquery', 'f5884/a365f/b5948'], function($, Class) {
+    define('ff0831/ecb90b', ['jquery', 'b6af8/eadac/fcef0'], function($, Class) {
         var language = {},
             isLoaded = false,
             Lang = Class.extend({
@@ -2214,7 +2171,7 @@ if (plugCubed !== undefined) plugCubed.close();
         });
         return new Lang;
     });
-    define('ff0831/b8f89a', ['jquery', 'f5884/a365f/b5948'], function($, Class) {
+    define('ff0831/b8f89a', ['jquery', 'b6af8/eadac/fcef0'], function($, Class) {
         return Class.extend({
             init: function(min, max, val, callback) {
                 this.min = min ? min : 0;
@@ -2264,7 +2221,7 @@ if (plugCubed !== undefined) plugCubed.close();
             }
         });
     });
-    define('ff0831/f0a227', ['jquery', 'f5884/a365f/b5948', 'ff0831/c960fa', 'f5884/cc643/b6bf4', 'f5884/c2fee/e2d0c/b21a8', 'ff0831/ecb90b', 'ff0831/ac3e26'], function($, Class, Model, LocalStorage, ADV, p3Lang, p3Utils) {
+    define('ff0831/f0a227', ['jquery', 'b6af8/eadac/fcef0', 'ff0831/c960fa', 'b6af8/aaa63/ec923', 'b6af8/befd3/ea40e/b3f80', 'ff0831/ecb90b', 'ff0831/ac3e26'], function($, Class, Model, LocalStorage, ADV, p3Lang, p3Utils) {
         var test = LocalStorage.getItem('plugCubedLang');
         if (test !== null && test !== '@@@')
             return Class.extend({
@@ -2331,7 +2288,7 @@ if (plugCubed !== undefined) plugCubed.close();
         Modified version of plug.dj's VolumeView
         VolumeView copyright (C) 2013 by Plug DJ, Inc.
     */
-    define('ff0831/ed26d7', ['jquery', 'underscore', 'f5884/c2fee/ea722/eeea5/d7884', 'f5884/e2fb4/f588d', 'hbs!template/room/playback/Volume', 'f5884/a365f/db53e', 'ff0831/ecb90b'], function($, e, original, r, s, Context, p3Lang) {
+    define('ff0831/ed26d7', ['jquery', 'underscore', 'b6af8/befd3/f1222/eec6d/ffcde', 'b6af8/bc792/fdee9', 'hbs!template/room/playback/Volume', 'b6af8/eadac/ccf48', 'ff0831/ecb90b'], function($, e, original, r, s, Context, p3Lang) {
         var o = original.extend({
             render: function() {
                 this._super();

@@ -1307,7 +1307,7 @@ if (plugCubed !== undefined) plugCubed.close();
                     //playMentionSound();
                     //setTimeout(playMentionSound, 50);
                     //p3Utils.chatLog('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
-                    p3Utils.chatLog('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength));
+                    p3Utils.chat('system', p3Lang.i18n('notify.message.songLength', this.settings.notifySongLength));
                     API.moderateForceSkip();
                 }
                 if (this.settings.autojoin) join();
@@ -1458,7 +1458,7 @@ if (plugCubed !== undefined) plugCubed.close();
                             //playMentionSound();
                             //setTimeout(playMentionSound, 50);
                             //p3Utils.chatLog('system', p3Lang.i18n('notify.message.history', found, p3history.length)) + '<br /><span onclick="if (API.getMedia().id === \'' + id + '\') API.moderateForceSkip()" style="cursor:pointer;">Click here to skip</span>');
-                            p3Utils.chatLog('system', p3Lang.i18n('notify.message.history', found, p3history.length));                            
+                            p3Utils.chat('system', p3Lang.i18n('notify.message.history', found, p3history.length));                            
                             API.moderateForceSkip();
                             return;
                         }
